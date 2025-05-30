@@ -35,9 +35,9 @@ public class CustomArrayList<T> implements CustomList<T> {
     }
 
     @Override
-    public T get(int index) {
+    public T get(int index) throws IndexOutOfBoundsException {
         if (index >= size || index < 0) {
-            return null;
+            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for an array of size " + size);
         }
         return (T) items[index];
     }

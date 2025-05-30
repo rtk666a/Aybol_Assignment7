@@ -59,10 +59,9 @@ public class CustomArrayListTest {
     }
 
     @Test
-    public void testGetInvalidIndexReturnsNull() {
-        list.add("Null");
-        assertNull(list.get(-1));
-        assertNull(list.get(10));
+    public void testGetInvalidIndexThrowsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(5));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.get(-3));
     }
 
     @Test
