@@ -8,7 +8,7 @@ public class CustomListApplication {
             names.add("name" + i);
         }
 
-        for (int i = 0; i < names.size; i++) {
+        for (int i = 0; i < names.getSize(); i++) {
             System.out.println(names.get(i));
         }
 

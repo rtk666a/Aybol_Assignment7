@@ -3,7 +3,7 @@ package com.coderscampus.arraylist;
 import java.util.Arrays;
 
 public class CustomArrayList<T> implements CustomList<T> {
-    Object[] items = new Object[10];
+    private Object[] items = new Object[10];
     int size = 0;
 
     public boolean add(T item) {
@@ -29,15 +29,8 @@ public class CustomArrayList<T> implements CustomList<T> {
         return true;
     }
 
-    public Object[] returnArray() {
-        Object[] newArray = new Object[items.length * 2];
-        System.arraycopy(items, 0, newArray, 0, items.length);
-        return newArray;
-    }
-
     @Override
     public int getSize() {
-
         return size;
     }
 

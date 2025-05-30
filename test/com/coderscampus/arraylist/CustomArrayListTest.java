@@ -1,14 +1,19 @@
-package test;
+package com.coderscampus.arraylist;
 
-import com.coderscampus.arraylist.CustomArrayList;
-import org.junit.Test;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class CustomListApplicationTest {
+public class CustomArrayListTest {
 
-    private final CustomArrayList<String> list = new CustomArrayList<>();
+    private CustomArrayList<String> list;
+
+    @BeforeEach
+    public void setUp() {
+        list = new CustomArrayList<>();
+    }
 
 
     @Test
@@ -30,9 +35,20 @@ public class CustomListApplicationTest {
     }
 
     @Test
+    public void testDynamicArrayResize() {
+        for (int i = 0; i < 12; i++) {
+            list.add(i, String.valueOf(i));
+        }
+        assertEquals(12, list.getSize());
+    }
+
+
+    @Test
     public void testAddItemAtInvalidIndexThrowsException() {
         assertThrows(IndexOutOfBoundsException.class, () -> list.add(5, "Five"));
+        assertThrows(IndexOutOfBoundsException.class, () -> list.add(-3, "minus three "));
     }
+
 
     @Test
     public void testGetItem() {
