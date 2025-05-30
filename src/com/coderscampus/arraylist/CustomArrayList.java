@@ -4,23 +4,23 @@ import java.util.Arrays;
 
 public class CustomArrayList<T> implements CustomList<T> {
     private Object[] items = new Object[10];
-    int size = 0;
-
+    private int size = 0;
+    
+    @Override
     public boolean add(T item) {
-        if (size == items.length) {
-            items = Arrays.copyOf(items, items.length * 2);
-        }
-        items[size++] = item;
-        return true;
+        return add(size,item);
     }
+
+
+
     @Override
     public boolean add(int index, T item) throws IndexOutOfBoundsException {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for an array of size " + size);
         }
-        if (size == items.length) {
-            items = Arrays.copyOf(items, items.length * 2);
-        }
+
+        resize();
+        
         for (int i = size; i > index; i--) {
             items[i] = items[i - 1];
         }
@@ -34,19 +34,17 @@ public class CustomArrayList<T> implements CustomList<T> {
         return size;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T get(int index) throws IndexOutOfBoundsException {
-        if (index >= size || index < 0) {
-            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for an array of size " + size);
-        }
+        IndexOutOfBoundsExceptionChek(index);
         return (T) items[index];
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for an array of size " + size);
-        }
+        IndexOutOfBoundsExceptionChek(index);
         T item = (T) items[index];
         for (int i = index; i < size - 1; i++) {
             items[i] = items[i + 1];
@@ -54,5 +52,17 @@ public class CustomArrayList<T> implements CustomList<T> {
         items[size - 1] = null;
         size--;
         return item;
+    }
+
+    private void IndexOutOfBoundsExceptionChek(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds for an array of size " + size);
+        }
+    }
+
+    private void resize() {
+        if (size == items.length) {
+            items = Arrays.copyOf(items, items.length * 2);
+        }
     }
 }
